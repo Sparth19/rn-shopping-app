@@ -10,7 +10,9 @@ const MainNavigator = props => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator tabBar={props => <AnimatedTabBar {...props} />}>
+    <Tab.Navigator
+      screenOptions={{headerShown: false}}
+      tabBar={props => <AnimatedTabBar {...props} />}>
       <Tab.Screen
         name="Home"
         options={{
@@ -49,6 +51,7 @@ const MainNavigator = props => {
         name="optionsSceen"
         options={{
           tabBarLabel: 'More',
+
           tabBarIcon: active => (
             <SvgIcon
               name={active ? 'moreVerticalFill' : 'moreVertical'}
