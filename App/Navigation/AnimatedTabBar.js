@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Svg, {Path} from 'react-native-svg';
 import {Colors, FONT_SIZE, Fonts} from '../Themes/AppTheme';
+import {isIphoneX} from '../Themes/iPhoneX';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
@@ -46,7 +47,7 @@ const AnimatedTabBar = ({
         viewBox="0 0 110 60"
         style={[styles.activeBackground, animatedStyles]}>
         <Path
-          fill="red"
+          fill={Colors.black10}
           d="M20 0H0c11.046 0 20 8.953 20 20v5c0 19.33 15.67 35 35 35s35-15.67 35-35v-5c0-11.045 8.954-20 20-20H20z"
         />
       </AnimatedSvg>
@@ -87,7 +88,7 @@ const TabBarComponent = ({active, options, onLayout, onPress}) => {
       <Animated.View
         style={[styles.componentCircle, animatedComponentCircleStyles]}
       />
-      <Animated.View style={[styles.iconContainer, [{top: active ? 0 : 30}]]}>
+      <Animated.View style={[styles.iconContainer, [{top: active ? 0 : 15}]]}>
         {options.tabBarIcon(active)}
         {!active ? (
           <Text style={styles.tabText}>{options.tabBarLabel}</Text>
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     marginTop: -5,
+    marginBottom: isIphoneX() ? 0 : 10,
   },
   componentCircle: {
     flex: 1,

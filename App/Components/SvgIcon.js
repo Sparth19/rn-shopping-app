@@ -9,6 +9,15 @@ import MoreVertical from '../Assets/Media/Common/more_vertical.svg';
 import MoreVerticalFill from '../Assets/Media/Common/more_vertical_fill.svg';
 import Heart from '../Assets/Media/Favorites/Heart.svg';
 import HeartFill from '../Assets/Media/Favorites/HeartFill.svg';
+import FavEmpty from '../Assets/Media/Favorites/favunfill.svg';
+import FavFill from '../Assets/Media/Favorites/favfill.svg';
+import DummyGrey from '../Assets/Media/Common/DummyGrey.svg';
+import DummyWhite from '../Assets/Media/Common/DummyWhite.svg';
+import SearchWhite from '../Assets/Media/Common/Searchwhite.svg';
+import DropdownWhite from '../Assets/Media/Common/DropdownWhite.svg';
+import Plus from '../Assets/Media/Common/plus.svg';
+import BagBlack from '../Assets/Media/Common/bagBlack.svg';
+import BagWhite from '../Assets/Media/Common/bagWhite.svg';
 
 const IconList = {
   home: Home,
@@ -19,6 +28,15 @@ const IconList = {
   moreVerticalFill: MoreVerticalFill,
   heart: Heart,
   heartFill: HeartFill,
+  dummyGrey: DummyGrey,
+  dummyWhite: DummyWhite,
+  searchWhite: SearchWhite,
+  dropdownWhite: DropdownWhite,
+  plus: Plus,
+  bagBlack: BagBlack,
+  bagWhite: BagWhite,
+  favEmpty: FavEmpty,
+  favFill: FavFill,
 };
 
 const SvgIcon = props => {
