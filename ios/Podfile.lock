@@ -372,6 +372,8 @@ PODS:
     - React-jsi (= 0.70.15)
     - React-logger (= 0.70.15)
     - React-perflogger (= 0.70.15)
+  - RNGestureHandler (2.15.0):
+    - React-Core
   - RNReanimated (3.7.0):
     - DoubleConversion
     - FBLazyVector
@@ -472,6 +474,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -566,6 +569,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -624,6 +629,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 12a2a859fa22368d2fc3ca7594504fd130b91a18
   React-runtimeexecutor: 04332dda2f2335ea4ddaf9255de069d3269f4e8b
   ReactCommon: 200471e0841cf2f7cde1fa2ef3d3c199ed970c07
+  RNGestureHandler: 0cba6c7c51a90cd793cf2475cf7fdca613ede300
   RNReanimated: 0bc0f8512be90069d838fd80436c42644ca0b55b
   RNScreens: fa9b582d85ae5d62c91c66003b5278458fed7aaa
   RNSVG: 42a0c731b11179ebbd27a3eeeafa7201ebb476ff

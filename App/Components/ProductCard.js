@@ -5,9 +5,15 @@ import Metrics from '../Themes/Metrics';
 import SvgIcon from './SvgIcon';
 
 const ProductCard = props => {
-  const {item, index} = props;
+  const {item, index, navigation} = props;
+  const handleNavigation = item => {
+    navigation.navigate('ProductDetailsScreen', {item});
+  };
+
   return (
-    <View style={styles.mainView}>
+    <TouchableOpacity
+      style={styles.mainView}
+      onPress={() => handleNavigation(item)}>
       <View style={{flex: 1}}>
         <Image
           source={{uri: item.thumbnail}}
@@ -37,7 +43,7 @@ const ProductCard = props => {
         style={{...styles.favView, ...styles.shadowStyle}}>
         <SvgIcon name={'favEmpty'} w={20} h={20} style={styles.shadowStyle} />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 

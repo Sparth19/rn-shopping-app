@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getProducts} from '../../Store/actions/actions';
@@ -32,8 +33,6 @@ const HomeScreen = props => {
     fetchProductList().then();
   }, []);
 
-  console.log('productList', productList);
-
   return (
     <SafeAreaView
       style={{
@@ -57,7 +56,9 @@ const HomeScreen = props => {
               marginTop: Metrics.rfv(10),
             }}>
             <Text style={styles.headerText}>Hey, Rahul</Text>
-            <SvgIcon name={'bagWhite'} w={22} h={22} />
+            <TouchableOpacity onPress={() => navigation.navigate('CartScreen')}>
+              <SvgIcon name={'bagWhite'} w={22} h={22} />
+            </TouchableOpacity>
           </View>
 
           <View
@@ -130,7 +131,11 @@ const HomeScreen = props => {
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
-                <ProductCard item={item} index={index} />
+                <ProductCard
+                  item={item}
+                  index={index}
+                  navigation={navigation}
+                />
               )}
             />
           </View>

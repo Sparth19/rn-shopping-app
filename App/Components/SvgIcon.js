@@ -18,6 +18,9 @@ import DropdownWhite from '../Assets/Media/Common/DropdownWhite.svg';
 import Plus from '../Assets/Media/Common/plus.svg';
 import BagBlack from '../Assets/Media/Common/bagBlack.svg';
 import BagWhite from '../Assets/Media/Common/bagWhite.svg';
+import BackBtn from '../Assets/Media/Common/backbtn.svg';
+import Minus from '../Assets/Media/Common/minus.svg';
+import PlusDark from '../Assets/Media/Common/plusDark.svg';
 
 const IconList = {
   home: Home,
@@ -37,6 +40,9 @@ const IconList = {
   bagWhite: BagWhite,
   favEmpty: FavEmpty,
   favFill: FavFill,
+  backBtn: BackBtn,
+  minus: Minus,
+  plusDark: PlusDark,
 };
 
 const SvgIcon = props => {

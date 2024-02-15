@@ -3,10 +3,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SvgIcon from '../Components/SvgIcon';
 import HomeScreen from '../Screens/Home/HomeScreen';
 import CategoriesScreen from '../Screens/Categories/CategoriesScreen';
-import FavoritesSceen from '../Screens/Favorites/FavoritesSceen';
-import optionsSceen from '../Screens/OptionsSceen';
+import FavoritesScreen from '../Screens/Favorites/FavoritesScreen';
+import OptionsScreen from '../Screens/OptionsScreen';
 
-const MainNavigator = props => {
+const TabNavigator = props => {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -38,20 +38,19 @@ const MainNavigator = props => {
         component={CategoriesScreen}
       />
       <Tab.Screen
-        name="FavoritesSceen"
+        name="FavoritesScreen"
         options={{
           tabBarLabel: 'Favorites',
           tabBarIcon: active => (
             <SvgIcon name={active ? 'heartFill' : 'heart'} w={25} h={25} />
           ),
         }}
-        component={FavoritesSceen}
+        component={FavoritesScreen}
       />
       <Tab.Screen
-        name="optionsSceen"
+        name="OptionsScreen"
         options={{
           tabBarLabel: 'More',
-
           tabBarIcon: active => (
             <SvgIcon
               name={active ? 'moreVerticalFill' : 'moreVertical'}
@@ -60,10 +59,10 @@ const MainNavigator = props => {
             />
           ),
         }}
-        component={optionsSceen}
+        component={OptionsScreen}
       />
     </Tab.Navigator>
   );
 };
 
-export default MainNavigator;
+export default TabNavigator;
