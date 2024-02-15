@@ -21,6 +21,7 @@ import BagWhite from '../Assets/Media/Common/bagWhite.svg';
 import BackBtn from '../Assets/Media/Common/backbtn.svg';
 import Minus from '../Assets/Media/Common/minus.svg';
 import PlusDark from '../Assets/Media/Common/plusDark.svg';
+import Trash from '../Assets/Media/Common/trash.svg';
 
 const IconList = {
   home: Home,
@@ -43,6 +44,7 @@ const IconList = {
   backBtn: BackBtn,
   minus: Minus,
   plusDark: PlusDark,
+  trash: Trash,
 };
 
 const SvgIcon = props => {

@@ -1,24 +1,26 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Colors, FONT_SIZE, Fonts} from '../../Themes/AppTheme';
 
 const CategoriesScreen = () => {
-    return (
-        <View style={{
-            backgroundColor: 'red', flex: 1, justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <Text style={styles.category}>Categories Screen</Text>
-        </View>
-    );
+  return (
+    <View style={styles.centerView}>
+      <Text style={styles.labelText}>Categories Screen</Text>
+    </View>
+  );
 };
 
 export default CategoriesScreen;
 
 const styles = StyleSheet.create({
-    category: {
-        fontSize: 24,
-        textAlign: 'center',
-        margin: 10,
-        color: 'white'
-    }
+  centerView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  labelText: {
+    fontFamily: Fonts.Manrope900,
+    fontSize: FONT_SIZE.regular_extra,
+    color: Colors.black100,
+  },
 });

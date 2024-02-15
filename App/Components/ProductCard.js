@@ -3,12 +3,28 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Colors, FONT_SIZE, Fonts} from '../Themes/AppTheme';
 import Metrics from '../Themes/Metrics';
 import SvgIcon from './SvgIcon';
+import {addToCart} from '../Store/reducers/cartSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {currencyFormat} from '../Utils/Functions';
+import {addFavorite, removeFavorite} from '../Store/reducers/favouriteSlice';
 
 const ProductCard = props => {
   const {item, index, navigation} = props;
-  const handleNavigation = item => {
-    navigation.navigate('ProductDetailsScreen', {item});
+  const dispatch = useDispatch();
+  const favList = useSelector(state => state.favourites.favList);
+
+  const isFav = favList.findIndex(i => i.id === item.id) !== -1;
+
+  const handleFavourite = item => {
+    const isFav = favList.findIndex(i => i.id === item.id) !== -1;
+    if (isFav) dispatch(removeFavorite(item.id));
+    else dispatch(addFavorite(item));
   };
+
+  const handleNavigation = item =>
+    navigation.navigate('ProductDetailsScreen', {item});
+
+  const handleAddToCart = item => dispatch(addToCart(item));
 
   return (
     <TouchableOpacity
@@ -24,10 +40,10 @@ const ProductCard = props => {
 
       <View style={styles.bottomView}>
         <View style={styles.priceView}>
-          <Text style={styles.priceText}>${item?.price}</Text>
+          <Text style={styles.priceText}>{currencyFormat(item?.price)}</Text>
           <TouchableOpacity
             style={styles.plusView}
-            onPress={() => {}}
+            onPress={() => handleAddToCart(item)}
             hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
             <SvgIcon name={'plus'} w={15} h={15} />
           </TouchableOpacity>
@@ -38,10 +54,10 @@ const ProductCard = props => {
       </View>
 
       <TouchableOpacity
-        onPress={() => alert('press')}
+        onPress={() => handleFavourite(item)}
         hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
-        style={{...styles.favView, ...styles.shadowStyle}}>
-        <SvgIcon name={'favEmpty'} w={20} h={20} style={styles.shadowStyle} />
+        style={styles.favView}>
+        <SvgIcon name={isFav ? 'favFill' : 'favEmpty'} w={20} h={20} />
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -59,6 +75,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: Metrics.rfv(12),
     overflow: 'hidden',
+    borderWidth: Metrics.rfv(1),
+    borderColor: Colors.black10,
   },
   image: {
     height: '100%',
@@ -93,16 +111,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: Metrics.rfv(10),
     left: Metrics.rfv(10),
-  },
-  shadowStyle: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   bottomView: {
     marginTop: Metrics.rfv(5),

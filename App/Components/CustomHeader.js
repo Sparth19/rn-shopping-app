@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,19 +9,23 @@ import {
 import SvgIcon from './SvgIcon';
 import Metrics from '../Themes/Metrics';
 import {Colors, FONT_SIZE, Fonts} from '../Themes/AppTheme';
+import BadgeView from './BadgeView';
+import {getTotalQuantity} from '../Utils/Functions';
+import {useSelector} from 'react-redux';
 
 const CustomHeader = props => {
-  const {cart, navigation, amount = 0, showTitle = false} = props;
+  const {cart, navigation, showTitle = false} = props;
+  const cartList = useSelector(state => state.cart.cartList);
+
+  const bagCount = useMemo(() => {
+    return getTotalQuantity(cartList);
+  }, [cartList]);
+
+  const handleNavigateCart = () => navigation.navigate('CartScreen');
 
   return (
-    <SafeAreaView
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: Metrics.rfv(20),
-      }}>
-      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+    <SafeAreaView style={styles.screenView}>
+      <View style={styles.rowCenter}>
         <TouchableOpacity
           style={styles.backView}
           onPress={() => navigation.goBack()}>
@@ -29,12 +33,13 @@ const CustomHeader = props => {
         </TouchableOpacity>
 
         {showTitle ? (
-          <Text style={styles.titleText}>{`Shopping Cart (${amount})`}</Text>
+          <Text style={styles.titleText}>{`Shopping Cart (${bagCount})`}</Text>
         ) : null}
       </View>
       {cart ? (
-        <TouchableOpacity onPress={() => alert('cart')}>
-          <SvgIcon name={'bagBlack'} w={20} h={20} />
+        <TouchableOpacity onPress={handleNavigateCart}>
+          <SvgIcon name={'bagBlack'} w={22} h={22} />
+          <BadgeView count={bagCount} borderWhite />
         </TouchableOpacity>
       ) : null}
     </SafeAreaView>
@@ -44,6 +49,17 @@ const CustomHeader = props => {
 export default CustomHeader;
 
 const styles = StyleSheet.create({
+  screenView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: Metrics.rfv(20),
+  },
+  rowCenter: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   backView: {
     backgroundColor: Colors.black10,
     width: Metrics.rfv(40),

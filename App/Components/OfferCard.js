@@ -4,8 +4,7 @@ import {Colors, FONT_SIZE, Fonts} from '../Themes/AppTheme';
 import SvgIcon from './SvgIcon';
 import Metrics from '../Themes/Metrics';
 
-const OfferCard = props => {
-  const {item, index} = props;
+const OfferCard = () => {
   return (
     <View style={styles.mainView}>
       <View style={styles.imageView}>

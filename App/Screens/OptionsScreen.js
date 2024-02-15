@@ -1,16 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Colors, FONT_SIZE, Fonts} from '../Themes/AppTheme';
 
 const OptionsScreen = () => {
   return (
-    <View
-      style={{
-        backgroundColor: 'red',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text style={styles.more}>Options Screen</Text>
+    <View style={styles.centerView}>
+      <Text style={styles.labelText}>Options Screen</Text>
     </View>
   );
 };
@@ -18,10 +13,14 @@ const OptionsScreen = () => {
 export default OptionsScreen;
 
 const styles = StyleSheet.create({
-  more: {
-    fontSize: 24,
-    textAlign: 'center',
-    margin: 10,
-    color: 'white',
+  centerView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  labelText: {
+    fontFamily: Fonts.Manrope900,
+    fontSize: FONT_SIZE.regular_extra,
+    color: Colors.black100,
   },
 });

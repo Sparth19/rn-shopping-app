@@ -1,12 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getProducts} from '../actions/actions';
+import {getProducts} from '../actions/productActions';
 
 const initialState = {
   productList: [],
   loading: false,
 };
 
-const dataSlice = createSlice({
+const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {},
@@ -24,4 +24,4 @@ const dataSlice = createSlice({
   },
 });
 
-export default dataSlice.reducer;
+export default productSlice.reducer;

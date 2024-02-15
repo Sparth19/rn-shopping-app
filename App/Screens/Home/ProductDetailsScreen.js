@@ -13,11 +13,29 @@ import CustomHeader from '../../Components/CustomHeader';
 import Metrics from '../../Themes/Metrics';
 import Carousel from 'react-native-reanimated-carousel';
 import SvgIcon from '../../Components/SvgIcon';
+import {addToCart} from '../../Store/reducers/cartSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {currencyFormat} from '../../Utils/Functions';
+import {addFavorite, removeFavorite} from '../../Store/reducers/favouriteSlice';
+import {AirbnbRating} from 'react-native-ratings';
 
 const ProductDetailsScreen = props => {
   const {navigation} = props;
   const {item} = props.route.params;
-  console.log('props', item);
+  const dispatch = useDispatch();
+
+  const favList = useSelector(state => state.favourites.favList);
+
+  const isFav = favList.findIndex(i => i.id === item.id) !== -1;
+
+  const handleFavourite = item => {
+    const isFav = favList.findIndex(i => i.id === item.id) !== -1;
+    if (isFav) dispatch(removeFavorite(item.id));
+    else dispatch(addFavorite(item));
+  };
+
+  const handleAddToCart = item => dispatch(addToCart(item));
+  const handleNavigateCart = () => navigation.navigate('CartScreen');
 
   const renderCarouselItem = ({item, index}) => {
     return (
@@ -35,10 +53,10 @@ const ProductDetailsScreen = props => {
     return (
       <View style={{flex: 1}}>
         <TouchableOpacity
-          onPress={() => alert('press')}
+          onPress={() => handleFavourite(item)}
           hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
           style={styles.favView}>
-          <SvgIcon name={'favEmpty'} w={20} h={20} style={styles.shadowStyle} />
+          <SvgIcon name={isFav ? 'favFill' : 'favEmpty'} w={20} h={20} />
         </TouchableOpacity>
         <Carousel
           loop
@@ -47,7 +65,6 @@ const ProductDetailsScreen = props => {
           autoPlay
           data={item.images}
           scrollAnimationDuration={2000}
-          onSnapToItem={index => console.log('current index:', index)}
           renderItem={renderCarouselItem}
         />
       </View>
@@ -55,12 +72,7 @@ const ProductDetailsScreen = props => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: Colors.baseWhite,
-        paddingVertical: Metrics.rfv(20),
-      }}>
+    <View style={styles.screenView}>
       <StatusBar
         animated={true}
         backgroundColor={Colors.baseWhite}
@@ -71,23 +83,40 @@ const ProductDetailsScreen = props => {
         <View>
           <Text style={styles.titleText}>{item.title || ''}</Text>
         </View>
-        <View>
-          <Text>rating bar</Text>
+        <View style={{flex: 1}}>
+          <AirbnbRating
+            isDisabled
+            type="star"
+            count={5}
+            showRating={false}
+            rating={item.rating}
+            defaultRating={item.rating}
+            size={Metrics.rfv(15)}
+            selectedColor={Colors.secTheme1}
+            unSelectedColor={Colors.baseBlack}
+            ratingContainerStyle={{
+              alignSelf: 'flex-start',
+              marginHorizontal: Metrics.rfv(20),
+              marginTop: Metrics.rfv(10),
+            }}
+          />
         </View>
-        <View>{renderCarousel()}</View>
-        <View style={{flexDirection: 'row', margin: Metrics.rfv(20)}}>
-          <Text style={styles.priceText}>${item.price}</Text>
+        <View style={{marginTop: Metrics.rfv(10)}}>{renderCarousel()}</View>
+        <View style={styles.priceView}>
+          <Text style={styles.priceText}>{currencyFormat(item.price)}</Text>
           <View style={styles.disView}>
             <Text style={styles.discountText}>
               {item.discountPercentage}% OFF
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', marginHorizontal: Metrics.rfv(20)}}>
-          <TouchableOpacity onPress={() => {}} style={styles.addBtnView}>
+        <View style={styles.priceView}>
+          <TouchableOpacity
+            onPress={() => handleAddToCart(item)}
+            style={styles.addBtnView}>
             <Text style={styles.addBtnText}>Add To Cart</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}} style={styles.buyView}>
+          <TouchableOpacity onPress={handleNavigateCart} style={styles.buyView}>
             <Text style={styles.buyText}>Buy Now</Text>
           </TouchableOpacity>
         </View>
@@ -183,5 +212,14 @@ const styles = StyleSheet.create({
     borderRadius: Metrics.rfv(15),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  screenView: {
+    flex: 1,
+    backgroundColor: Colors.baseWhite,
+    paddingVertical: Metrics.rfv(20),
+  },
+  priceView: {
+    flexDirection: 'row',
+    margin: Metrics.rfv(20),
   },
 });

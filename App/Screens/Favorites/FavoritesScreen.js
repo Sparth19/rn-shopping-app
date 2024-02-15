@@ -1,16 +1,37 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import CustomHeader from '../../Components/CustomHeader';
+import {Colors, FONT_SIZE, Fonts} from '../../Themes/AppTheme';
+import ProductCard from '../../Components/ProductCard';
+import {useSelector} from 'react-redux';
 
-const FavoritesScreen = () => {
+const FavoritesScreen = props => {
+  const {navigation} = props;
+  const favList = useSelector(state => state.favourites.favList);
+
   return (
     <View
       style={{
-        backgroundColor: 'red',
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: Colors.baseWhite,
       }}>
-      <Text style={styles.favorites}>Favorites Screen</Text>
+      <CustomHeader cart navigation={navigation} />
+      {favList?.length ? (
+        <FlatList
+          data={favList}
+          numColumns={2}
+          initialNumToRender={10}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item, index}) => (
+            <ProductCard item={item} index={index} navigation={navigation} />
+          )}
+        />
+      ) : (
+        <View style={styles.centerView}>
+          <Text style={styles.emptyBanner}>No Favourites!</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -18,10 +39,14 @@ const FavoritesScreen = () => {
 export default FavoritesScreen;
 
 const styles = StyleSheet.create({
-  favorites: {
-    fontSize: 24,
-    textAlign: 'center',
-    margin: 10,
-    color: 'white',
+  centerView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyBanner: {
+    fontFamily: Fonts.Manrope900,
+    fontSize: FONT_SIZE.regular_extra,
+    color: Colors.black100,
   },
 });
